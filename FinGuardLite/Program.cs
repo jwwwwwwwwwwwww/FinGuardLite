@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<FinGuardDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("FinGuardDb")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FinGuardDb")));
 
 builder.Services.AddScoped<RiskScoringService>();
 
@@ -24,6 +24,12 @@ builder.Services.AddSession(options =>
 });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<FinGuardDbContext>();
+    await context.Database.MigrateAsync();
+}
 
 await FinGuardDbSeeder.SeedAsync(app.Services);
 
