@@ -86,3 +86,7 @@ No real financial, banking, or personal customer data is used.
 
 ```text
 FinGuardLite.sln
+
+<img width="1918" height="910" alt="image" src="https://github.com/user-attachments/assets/3be2db07-118b-47b3-aa6b-49e271eb4963" />
+
+
