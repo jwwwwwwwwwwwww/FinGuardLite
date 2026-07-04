@@ -1,0 +1,82 @@
+﻿@page
+@model FinGuardLite.Pages.RiskAlerts.IndexModel
+
+@{
+    ViewData["Title"] = "Risk Alerts";
+}
+
+<h1>Risk Alerts</h1>
+
+<p class="text-muted">
+    This page shows transactions that were flagged by the rule-based risk scoring engine.
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Created At</th>
+            <th>Customer</th>
+            <th>Amount</th>
+            <th>Merchant</th>
+            <th>Category</th>
+            <th>Country</th>
+            <th>Risk Score</th>
+            <th>Risk Level</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Review</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var alert in Model.RiskAlerts)
+        {
+            <tr>
+                <td>@alert.CreatedAt.ToString("dd MMM yyyy HH:mm")</td>
+                <td>@alert.TransactionRecord?.Customer?.FullName</td>
+                <td>$@alert.TransactionRecord?.Amount.ToString("N2")</td>
+                <td>@alert.TransactionRecord?.Merchant</td>
+                <td>@alert.TransactionRecord?.Category</td>
+                <td>@alert.TransactionRecord?.Country</td>
+                <td>@alert.RiskScore</td>
+                <td>
+                    @if (alert.RiskLevel == "High")
+                    {
+                        <span class="badge bg-danger">High</span>
+                    }
+                    else if (alert.RiskLevel == "Medium")
+                    {
+                        <span class="badge bg-warning text-dark">Medium</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Low</span>
+                    }
+                </td>
+                <td>@alert.Reason</td>
+                <td>
+                    @if (alert.Status == "Open")
+                    {
+                        <span class="badge bg-secondary">Open</span>
+                    }
+                    else if (alert.Status == "Under Review")
+                    {
+                        <span class="badge bg-info text-dark">Under Review</span>
+                    }
+                    else if (alert.Status == "Escalated")
+                    {
+                        <span class="badge bg-danger">Escalated</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Cleared</span>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-page="Review" asp-route-id="@alert.RiskAlertId">
+                        Review
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

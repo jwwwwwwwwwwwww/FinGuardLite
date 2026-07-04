@@ -1,0 +1,48 @@
+﻿@page "/Login"
+@model FinGuardLite.Pages.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <h1 class="h3 mb-2">FinGuard Lite</h1>
+                    <p class="text-muted mb-0">
+                        Internal access for the transaction risk monitoring system.
+                    </p>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger">
+                        @Model.ErrorMessage
+                    </div>
+                }
+
+                <form method="post">
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label">Username</label>
+                        <input asp-for="Username" class="form-control" autocomplete="username" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <input asp-for="Password" class="form-control" type="password" autocomplete="current-password" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Login
+                    </button>
+                </form>
+
+                <p class="text-muted text-center mt-4 mb-0 small">
+                    Role-based demo access for portfolio purposes.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

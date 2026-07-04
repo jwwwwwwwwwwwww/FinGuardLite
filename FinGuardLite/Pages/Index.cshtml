@@ -1,0 +1,145 @@
+﻿@page "/"
+@model FinGuardLite.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="mb-4">
+    <h1>FinGuard Lite Dashboard</h1>
+    <p class="text-muted">
+        A mini transaction risk monitoring system using rule-based risk scoring.
+    </p>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Transactions</h6>
+                <h2>@Model.TotalTransactions</h2>
+                <p class="text-muted mb-0">All recorded transactions</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Total Value</h6>
+                <h2>$@Model.TotalTransactionValue.ToString("N2")</h2>
+                <p class="text-muted mb-0">Total transaction amount</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Flagged Transactions</h6>
+                <h2>@Model.FlaggedTransactions</h2>
+                <p class="text-muted mb-0">Medium or high risk</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="text-muted">Open Alerts</h6>
+                <h2>@Model.OpenAlerts</h2>
+                <p class="text-muted mb-0">Pending analyst review</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">Risk Overview</h5>
+    </div>
+    <div class="card-body">
+        <p>
+            The system uses simple rule-based checks to flag transactions based on amount,
+            overseas activity, high-risk categories, and customer income profile.
+        </p>
+
+        <div class="alert alert-info mb-0">
+            High-risk transactions detected: <strong>@Model.HighRiskTransactions</strong>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Recent Risk Alerts</h5>
+        <a class="btn btn-sm btn-primary" asp-page="/RiskAlerts/Index">View All Alerts</a>
+    </div>
+
+    <div class="card-body">
+        @if (Model.RecentRiskAlerts.Any())
+        {
+            <table class="table table-bordered table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th>Created At</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Merchant</th>
+                        <th>Risk Score</th>
+                        <th>Risk Level</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var alert in Model.RecentRiskAlerts)
+                    {
+                        <tr>
+                            <td>@alert.CreatedAt.ToString("dd MMM yyyy HH:mm")</td>
+                            <td>@alert.TransactionRecord?.Customer?.FullName</td>
+                            <td>$@alert.TransactionRecord?.Amount.ToString("N2")</td>
+                            <td>@alert.TransactionRecord?.Merchant</td>
+                            <td>@alert.RiskScore</td>
+                            <td>
+                                @if (alert.RiskLevel == "High")
+                                {
+                                    <span class="badge bg-danger">High</span>
+                                }
+                                else if (alert.RiskLevel == "Medium")
+                                {
+                                    <span class="badge bg-warning text-dark">Medium</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Low</span>
+                                }
+                            </td>
+                            <td>
+                                @if (alert.Status == "Open")
+                                {
+                                    <span class="badge bg-secondary">Open</span>
+                                }
+                                else if (alert.Status == "Under Review")
+                                {
+                                    <span class="badge bg-info text-dark">Under Review</span>
+                                }
+                                else if (alert.Status == "Escalated")
+                                {
+                                    <span class="badge bg-danger">Escalated</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Cleared</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No risk alerts yet.</p>
+        }
+    </div>
+</div>

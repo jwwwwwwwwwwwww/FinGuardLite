@@ -1,0 +1,47 @@
+﻿@page "/AuditLogs"
+@model FinGuardLite.Pages.AuditLogs.IndexModel
+
+@{
+    ViewData["Title"] = "Audit Logs";
+}
+
+<h1>Audit Logs</h1>
+
+<p class="text-muted">
+    This page records important system actions for traceability.
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>Username</th>
+            <th>Action</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var log in Model.AuditLogs)
+        {
+            <tr>
+                <td>@log.Timestamp.ToString("dd MMM yyyy HH:mm:ss")</td>
+                <td>@log.Username</td>
+                <td>
+                    @if (log.Action == "Transaction Created")
+                    {
+                        <span class="badge bg-primary">@log.Action</span>
+                    }
+                    else if (log.Action == "Risk Alert Reviewed")
+                    {
+                        <span class="badge bg-warning text-dark">@log.Action</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">@log.Action</span>
+                    }
+                </td>
+                <td>@log.Details</td>
+            </tr>
+        }
+    </tbody>
+</table>

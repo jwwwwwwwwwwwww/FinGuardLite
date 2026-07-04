@@ -1,0 +1,108 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: #f6f8fb;
+    color: #1f2937;
+    padding-bottom: 110px;
+}
+
+main {
+    padding-bottom: 90px;
+}
+
+.navbar {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.nav-link {
+    font-weight: 500;
+}
+
+.container {
+    max-width: 1180px;
+}
+
+h1 {
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.text-muted {
+    color: #6b7280 !important;
+}
+
+.card {
+    border-radius: 14px;
+    border: 1px solid #e5e7eb !important;
+}
+
+.card-header {
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+}
+
+.card-body h2 {
+    font-weight: 700;
+}
+
+.table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+    .table th {
+        background-color: #f3f4f6;
+        font-weight: 700;
+        vertical-align: middle;
+    }
+
+    .table td {
+        vertical-align: middle;
+    }
+
+.badge {
+    padding: 0.45em 0.65em;
+    font-size: 0.78rem;
+    border-radius: 8px;
+}
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.alert {
+    border-radius: 10px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    color: #6b7280;
+    padding: 14px 0;
+    z-index: 1030;
+}

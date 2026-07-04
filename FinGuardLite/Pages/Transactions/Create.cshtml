@@ -1,0 +1,143 @@
+﻿@page
+@model FinGuardLite.Pages.Transactions.CreateModel
+
+@{
+    ViewData["Title"] = "Add New Customer";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1>Manual Transaction Entry</h1>
+        <p class="text-muted mb-0">
+            Simulate a transaction and automatically calculate its risk score. In a real deployment,
+            transaction data would normally be ingested from banking, card, payment, or AML monitoring systems.
+        </p>
+    </div>
+
+    <a class="btn btn-outline-primary" asp-page="/Customers/Create">
+        Add New Customer
+    </a>
+</div>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="TransactionRecord.CustomerId" class="form-label">Customer</label>
+        <select asp-for="TransactionRecord.CustomerId" class="form-select" asp-items="Model.CustomerSelectList">
+            <option value="">-- Select Customer --</option>
+        </select>
+        <span asp-validation-for="TransactionRecord.CustomerId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TransactionRecord.TransactionDate" class="form-label">Transaction Date</label>
+        <input asp-for="TransactionRecord.TransactionDate" class="form-control" type="datetime-local" />
+        <span asp-validation-for="TransactionRecord.TransactionDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TransactionRecord.Amount" class="form-label">Amount</label>
+        <input asp-for="TransactionRecord.Amount" class="form-control" />
+        <span asp-validation-for="TransactionRecord.Amount" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TransactionRecord.Merchant" class="form-label">Merchant</label>
+        <input asp-for="TransactionRecord.Merchant"
+               class="form-control"
+               list="merchantSuggestions"
+               placeholder="Type or select a merchant" />
+
+        <datalist id="merchantSuggestions">
+            <option value="FairPrice"></option>
+            <option value="Cold Storage"></option>
+            <option value="Sheng Siong"></option>
+            <option value="Grab"></option>
+            <option value="Gojek"></option>
+            <option value="Foodpanda"></option>
+            <option value="Shopee"></option>
+            <option value="Lazada"></option>
+            <option value="Amazon"></option>
+            <option value="Apple Store"></option>
+            <option value="Challengers"></option>
+            <option value="Courts"></option>
+            <option value="Harvey Norman"></option>
+            <option value="Singapore Airlines"></option>
+            <option value="Agoda"></option>
+            <option value="Wise Transfer"></option>
+            <option value="Revolut"></option>
+            <option value="Binance"></option>
+            <option value="Crypto.com"></option>
+            <option value="Unknown"></option>
+        </datalist>
+
+        <span asp-validation-for="TransactionRecord.Merchant" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TransactionRecord.Category" class="form-label">Category</label>
+        <select asp-for="TransactionRecord.Category" class="form-select">
+            <option value="">-- Select Category --</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Travel">Travel</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Education">Education</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Investment">Investment</option>
+            <option value="Money Transfer">Money Transfer</option>
+            <option value="Crypto">Crypto</option>
+            <option value="Gambling">Gambling</option>
+            <option value="Unknown">Unknown</option>
+        </select>
+        <span asp-validation-for="TransactionRecord.Category" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TransactionRecord.Country" class="form-label">Country</label>
+        <input asp-for="TransactionRecord.Country"
+               class="form-control"
+               list="countrySuggestions"
+               placeholder="Type a country, e.g. Singapore" />
+
+        <datalist id="countrySuggestions">
+            @foreach (var country in Model.Countries)
+            {
+                <option value="@country"></option>
+            }
+        </datalist>
+
+        <span asp-validation-for="TransactionRecord.Country" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TransactionRecord.PaymentType" class="form-label">Payment Type</label>
+        <select asp-for="TransactionRecord.PaymentType" class="form-select">
+            <option value="Card">Card</option>
+            <option value="Debit Card">Debit Card</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="PayNow">PayNow</option>
+            <option value="Bank Transfer">Bank Transfer</option>
+            <option value="FAST Transfer">FAST Transfer</option>
+            <option value="E-Wallet">E-Wallet</option>
+            <option value="Mobile Wallet">Mobile Wallet</option>
+            <option value="Buy Now Pay Later">Buy Now Pay Later</option>
+            <option value="Cash Withdrawal">Cash Withdrawal</option>
+            <option value="Cheque">Cheque</option>
+            <option value="Crypto">Crypto</option>
+            <option value="Other">Other</option>
+        </select>
+        <span asp-validation-for="TransactionRecord.PaymentType" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Transaction</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

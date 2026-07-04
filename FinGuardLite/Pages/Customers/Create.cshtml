@@ -1,0 +1,56 @@
+﻿@page "/Customers/Create"
+@model FinGuardLite.Pages.Customers.CreateModel
+
+@{
+    ViewData["Title"] = "Add Customer";
+}
+
+<h1>Manual Customer Setup</h1>
+
+<p class="text-muted">
+    Create a mock customer profile used by the risk scoring engine. In a real deployment,
+    this data would usually come from a customer master system or KYC onboarding database.
+</p>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Customer.FullName" class="form-label">Full Name</label>
+        <input asp-for="Customer.FullName" class="form-control" />
+        <span asp-validation-for="Customer.FullName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Customer.Age" class="form-label">Age</label>
+        <input asp-for="Customer.Age" class="form-control" />
+        <span asp-validation-for="Customer.Age" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Customer.MonthlyIncome" class="form-label">Monthly Income</label>
+        <input asp-for="Customer.MonthlyIncome" class="form-control" />
+        <span asp-validation-for="Customer.MonthlyIncome" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Customer.Country" class="form-label">Country</label>
+        <input asp-for="Customer.Country" class="form-control" />
+        <span asp-validation-for="Customer.Country" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Customer.RiskProfile" class="form-label">Risk Profile</label>
+        <select asp-for="Customer.RiskProfile" class="form-select">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <span asp-validation-for="Customer.RiskProfile" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Customer</button>
+    <a asp-page="/Customers/Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

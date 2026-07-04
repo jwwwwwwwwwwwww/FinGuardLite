@@ -1,0 +1,59 @@
+﻿@page
+@model FinGuardLite.Pages.Transactions.IndexModel
+
+@{
+    ViewData["Title"] = "Transactions";
+}
+
+<h1>Transactions</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Simulate Transaction</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Amount</th>
+            <th>Merchant</th>
+            <th>Category</th>
+            <th>Country</th>
+            <th>Payment Type</th>
+            <th>Risk Score</th>
+            <th>Risk Level</th>
+            <th>Flag Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.TransactionRecords)
+        {
+            <tr>
+                <td>@item.TransactionDate.ToString("dd MMM yyyy")</td>
+                <td>@item.Customer?.FullName</td>
+                <td>$@item.Amount.ToString("N2")</td>
+                <td>@item.Merchant</td>
+                <td>@item.Category</td>
+                <td>@item.Country</td>
+                <td>@item.PaymentType</td>
+                <td>@item.RiskScore</td>
+                <td>
+                    @if (item.RiskLevel == "High")
+                    {
+                        <span class="badge bg-danger">High</span>
+                    }
+                    else if (item.RiskLevel == "Medium")
+                    {
+                        <span class="badge bg-warning text-dark">Medium</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">Low</span>
+                    }
+                </td>
+                <td>@item.FlagReason</td>
+            </tr>
+        }
+    </tbody>
+</table>

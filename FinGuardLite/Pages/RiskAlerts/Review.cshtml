@@ -1,0 +1,49 @@
+﻿@page
+@model FinGuardLite.Pages.RiskAlerts.ReviewModel
+
+@{
+    ViewData["Title"] = "Review Risk Alert";
+}
+
+<h1>Review Risk Alert</h1>
+
+@if (Model.RiskAlert != null)
+{
+    <div class="card mb-4">
+        <div class="card-header">
+            Alert Details
+        </div>
+        <div class="card-body">
+            <p><strong>Customer:</strong> @Model.RiskAlert.TransactionRecord?.Customer?.FullName</p>
+            <p><strong>Amount:</strong> $@Model.RiskAlert.TransactionRecord?.Amount.ToString("N2")</p>
+            <p><strong>Merchant:</strong> @Model.RiskAlert.TransactionRecord?.Merchant</p>
+            <p><strong>Category:</strong> @Model.RiskAlert.TransactionRecord?.Category</p>
+            <p><strong>Country:</strong> @Model.RiskAlert.TransactionRecord?.Country</p>
+            <p><strong>Risk Score:</strong> @Model.RiskAlert.RiskScore</p>
+            <p><strong>Risk Level:</strong> @Model.RiskAlert.RiskLevel</p>
+            <p><strong>Reason:</strong> @Model.RiskAlert.Reason</p>
+        </div>
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="RiskAlertId" />
+
+        <div class="mb-3">
+            <label asp-for="Status" class="form-label">Review Status</label>
+            <select asp-for="Status" class="form-select">
+                <option value="Open">Open</option>
+                <option value="Under Review">Under Review</option>
+                <option value="Cleared">Cleared</option>
+                <option value="Escalated">Escalated</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="AnalystComment" class="form-label">Analyst Comment</label>
+            <textarea asp-for="AnalystComment" class="form-control" rows="5"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Review</button>
+        <a asp-page="Index" class="btn btn-secondary">Back</a>
+    </form>
+}
