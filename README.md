@@ -78,15 +78,6 @@ The sample dataset includes:
 
 No real financial, banking, or personal customer data is used.
 
-## How to Run Locally
-
-1. Clone the repository.
-
-2. Open the solution file in Visual Studio:
-
-```text
-FinGuardLite.sln
-
 Limitations
 
 FinGuard Lite is a prototype and does not connect to real banking systems, real-time payment APIs, customer onboarding platforms, or machine learning models.
@@ -100,3 +91,14 @@ API-based transaction ingestion
 Stronger authentication
 Cloud deployment
 More advanced risk scoring logic
+
+## How to Run Locally
+
+1. Clone the repository.
+
+2. Open the solution file in Visual Studio:
+
+```text
+FinGuardLite.sln
+
+
