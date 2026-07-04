@@ -87,3 +87,16 @@ No real financial, banking, or personal customer data is used.
 ```text
 FinGuardLite.sln
 
+Limitations
+
+FinGuard Lite is a prototype and does not connect to real banking systems, real-time payment APIs, customer onboarding platforms, or machine learning models.
+
+Future improvements could include:
+
+Search and filtering
+Charts and analytics
+CSV export
+API-based transaction ingestion
+Stronger authentication
+Cloud deployment
+More advanced risk scoring logic
